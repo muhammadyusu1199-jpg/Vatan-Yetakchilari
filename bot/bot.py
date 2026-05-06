@@ -26,7 +26,7 @@ except ImportError:
     BOT_TOKEN = os.getenv("TOKEN")
 from handlers import registration, learning, quiz, shop, admin, subscription, ai_chat
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 
 # Logging sozlash — botning ish jarayonini konsolda ko'rish uchun
