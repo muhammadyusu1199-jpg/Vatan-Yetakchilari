@@ -18,7 +18,7 @@ import database as db
 # Handler'larni import qilish
 from handlers import registration, learning, quiz, shop, admin, subscription, ai_chat
 
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BOT_TOKEN = os.getenv("TOKEN") 
 
 # Logging sozlash — botning ish jarayonini konsolda ko'rish uchun
