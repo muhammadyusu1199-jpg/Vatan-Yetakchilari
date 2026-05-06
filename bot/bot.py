@@ -14,8 +14,11 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
 import database as db
-from config import BOT_TOKEN
-# Handler'larni import qilish
+try:
+    from config import BOT_TOKEN
+except ImportError:
+    # Agar baribir topilmasa, Railway Variables'dan oladi
+    BOT_TOKEN = os.getenv("TOKEN")
 from handlers import registration, learning, quiz, shop, admin, subscription, ai_chat
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
