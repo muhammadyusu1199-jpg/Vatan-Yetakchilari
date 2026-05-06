@@ -6,7 +6,14 @@ import sqlite3
 import hashlib
 import os
 from datetime import date, datetime
-from config import DB_NAME
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from config import DB_NAME
+except ImportError:
+    # Agar config fayli topilmasa, Railway Variables'dan oladi
+    # Standart qiymat sifatida 'database.db' ishlatiladi
+    DB_NAME = os.getenv("DB_NAME", "database.db")
 
 
 def get_connection():
