@@ -13,7 +13,12 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
-import database as db
+try:
+    from config import DB_NAME
+except ImportError:
+    # Agar config fayli topilmasa, Railway Variables'dan oladi
+    # Agar u yerda yo'q bo'lsa, standart 'database.db' nomini ishlatadi
+    DB_NAME = os.getenv("DB_NAME", "vatan_y.db")
 try:
     from config import BOT_TOKEN
 except ImportError:
