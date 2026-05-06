@@ -5,6 +5,7 @@ database.py — SQLite ma'lumotlar bazasi (to'liq versiya)
 import sqlite3
 import hashlib
 import os
+import sys
 from datetime import date, datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
