@@ -14,12 +14,12 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
 import database as db
-
+from config import BOT_TOKEN
 # Handler'larni import qilish
 from handlers import registration, learning, quiz, shop, admin, subscription, ai_chat
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-BOT_TOKEN = os.getenv("TOKEN") 
+
 
 # Logging sozlash — botning ish jarayonini konsolda ko'rish uchun
 logging.basicConfig(
@@ -60,39 +60,69 @@ async def on_shutdown(bot: Bot):
 
 
 async def main():
+
     """
+
     Asosiy funksiya — botni sozlash va ishga tushirish.
+
     """
-    # 2. Token mavjudligini tekshirish (Xatolikni oldini olish uchun)
-    if not BOT_TOKEN:
-        logger.error("❌ BOT_TOKEN topilmadi! Railway Variables bo'limini tekshiring.")
-        return
 
     # Bot obyekti yaratish
+
+    # DefaultBotProperties — HTML parse_mode standart sifatida
+
     bot = Bot(
+
         token=BOT_TOKEN,
+
         default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+
     )
 
+
+
     # Dispatcher — barcha handler'larni boshqaruvchi
+
     dp = Dispatcher()
 
+
+
     # Ishga tushish va to'xtash signallarini ulash
+
     dp.startup.register(on_startup)
+
     dp.shutdown.register(on_shutdown)
 
+
+
     # Handler'larni router sifatida ro'yxatga olish
+
+    # Tartib muhim: registration birinchi bo'lishi kerak (CommandStart uchun)
+
     dp.include_router(registration.router)
+
     dp.include_router(learning.router)
+
     dp.include_router(quiz.router)
+
     dp.include_router(shop.router)
+
     dp.include_router(admin.router)
+
     dp.include_router(subscription.router)
+
     dp.include_router(ai_chat.router)
+
+
 
     logger.info("🤖 Bot ishga tushmoqda...")
 
-    # Polling
+
+
+    # Polling — Telegram serverdan doimiy yangiliklar olish
+
+    # skip_updates=True — bot o'chiq paytdagi eski xabarlarni o'tkazib yuboradi
+
     await dp.start_polling(bot, skip_updates=True)
 
 
